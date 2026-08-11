@@ -82,7 +82,7 @@
         <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="b2"/>
         <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter></defs>
-      <polyline id="ledLine" class="ledpath" points="0,86 95,64 1388,53 1536,14" vector-effect="non-scaling-stroke" stroke-width="4"/>
+      <polyline id="ledLine" class="ledpath" points="0,69 150,63 500,67 800,69 1100,67 1252,62 1380,44 1536,27" vector-effect="non-scaling-stroke" stroke-width="4"/>
     </svg>
     <img id="neonImg" alt="">
     <div class="neontxt" id="neonTxt"><div class="n2"></div></div>
@@ -136,7 +136,7 @@
 (function(){
 const $=id=>document.getElementById(id);
 const CDN='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/';
-const ROOM=CDN+'room/';
+const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data'+VER+'/';const ROOM=CDNV+'room/';['wallLayer','carpetLayer'].forEach(function(id,i){var el=document.getElementById(id);var u='url("'+ROOM+(i?'floor-mask.png':'wall-mask.png')+'")';el.style.webkitMaskImage=u;el.style.maskImage=u;});
 $('baseImg').src=ROOM+'base.webp';
 $('overImg').src=ROOM+'over.webp';
 
