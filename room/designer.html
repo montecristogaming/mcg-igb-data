@@ -252,7 +252,7 @@ function addCarpet(fname){
   $('cFloor').appendChild(b);
 }
 fetch('https://api.github.com/repos/montecristogaming/mcg-igb-data/git/trees/main?recursive=1').then(r=>r.ok?r.json():Promise.reject()).then(t=>{
-  const files=(t.tree||[]).map(e=>e.path).filter(p=>/\.(webp|jpe?g|png|gif|avif)$/i.test(p)&&!p.startsWith('room/'));
+  const files=(t.tree||[]).map(e=>e.path).filter(p=>/\.(webp|jpe?g|png|gif|avif)$/i.test(p)&&!p.startsWith('room/')&&!/mural|sign|palm|bird|soda|snack|popcorn|slot|helix|screenshot|monte_?cristo|coca/i.test(p));
   if(!files.length)throw 0;
   files.forEach(p=>addCarpet(p));
 }).catch(()=>{
