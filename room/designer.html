@@ -20,15 +20,15 @@
 #mcgRoom #wallBg{position:absolute;left:15.1%;top:5.1%;width:75.3%;height:57.2%;background-size:cover;background-position:center}
 #mcgRoom #wallBg.pat{background-size:auto}
 #mcgRoom #wallTint{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.28),rgba(0,0,0,.05) 40%,rgba(0,0,0,.22))}
-#mcgRoom #carpetLayer{-webkit-mask-image:url(https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/room/floor-mask.png);mask-image:url(https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/room/floor-mask.png);display:none;perspective:520px}
-#mcgRoom #carpetPlane{position:absolute;left:-25%;top:56%;width:150%;height:130%;transform-origin:top center;transform:rotateX(48deg);background-repeat:repeat}
+#mcgRoom #carpetLayer{-webkit-mask-image:url(https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/room/floor-mask.png);mask-image:url(https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/room/floor-mask.png);display:none}
+#mcgRoom #carpetPlane{position:absolute;left:-30%;top:55.5%;width:160%;height:70%;transform-origin:top center;transform:perspective(520px) rotateX(42deg);background-repeat:repeat}
 #mcgRoom #carpetShade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.5) 60%,rgba(0,0,0,.12) 78%,rgba(0,0,0,.32));opacity:.55}
 /* LED along crown */
 #mcgRoom svg.led{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-#mcgRoom .ledpath{fill:none;stroke:#ff2d78;stroke-width:.45;filter:url(#mcgGlow);animation:mcgPulse 3.2s ease-in-out infinite}
+#mcgRoom .ledpath{fill:none;stroke:#ff2d78;stroke-width:4px;filter:url(#mcgGlow);animation:mcgPulse 3.2s ease-in-out infinite}
 @keyframes mcgPulse{0%,100%{opacity:.92}50%{opacity:1}}
 /* neon sign */
-#mcgRoom #neonImg{position:absolute;left:44.2%;top:6.5%;width:13%;display:none;pointer-events:none;
+#mcgRoom #neonImg{position:absolute;left:44%;top:8.2%;width:12%;display:none;pointer-events:none;
  filter:drop-shadow(0 0 8px rgba(255,80,140,.6)) drop-shadow(0 0 22px rgba(79,215,255,.45))}
 #mcgRoom .neontxt{position:absolute;left:50%;top:8%;transform:translateX(-50%);text-align:center;display:none;pointer-events:none}
 #mcgRoom .neontxt .n2{font-family:'Jost';font-weight:500;letter-spacing:.18em;font-size:clamp(14px,2.2vw,30px);color:#fff;text-shadow:0 0 8px #ffd23f,0 0 24px #ffb400,0 0 44px #ff8a00}
@@ -220,7 +220,7 @@ function addCarpet(path){
    state.floor=path;state.floorName=name+' casino carpet';
    $('carpetLayer').style.display='block';
    $('carpetPlane').style.backgroundImage='url("'+url+'")';
-   $('carpetPlane').style.backgroundSize='340px auto';
+   $('carpetPlane').style.backgroundSize='300px auto';
    $('cFloorName').textContent=name+' casino carpet';selOnly($('cFloor'),b);
  };
  $('cFloor').appendChild(b);
