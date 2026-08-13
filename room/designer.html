@@ -173,7 +173,7 @@
 (function(){
 const $=id=>document.getElementById(id);
 const CDN='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/';
-const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data'+VER+'/';const ROOM=CDNV+'room/';['wallLayer','carpetLayer'].forEach(function(id,i){var el=document.getElementById(id);var u='url("'+ROOM+(i?'floor-mask.png':'wall-mask.png')+'")';el.style.webkitMaskImage=u;el.style.maskImage=u;});
+const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data'+VER+'/';const ROOM=CDNV+'room/';const MSICDN='https://cdn.msisurfaces.com/images/colornames/thumbnails/';['wallLayer','carpetLayer'].forEach(function(id,i){var el=document.getElementById(id);var u='url("'+ROOM+(i?'floor-mask.png':'wall-mask.png')+'")';el.style.webkitMaskImage=u;el.style.maskImage=u;});
 $('baseImg').src=ROOM+'base.webp';
 $('overImg').src=CDNV+'over-mid.webp';
 $('frontImg').src=CDNV+'over-front.webp';
@@ -292,7 +292,7 @@ fetch('https://api.github.com/repos/montecristogaming/mcg-igb-data/git/trees/mai
 /* privacy wall + coverage */
 function fac(body,bg){return svgW(96,60,body,bg)+' 0 0/96px 60px'}
 function ledger(c1,c2,c3,m){let b='';const rows=[[0,[0,30,'A'],[30,58,'B'],[58,96,'C']],[15,[0,22,'C'],[22,52,'A'],[52,80,'B'],[80,96,'A']],[30,[0,38,'B'],[38,64,'C'],[64,96,'A']],[45,[0,26,'A'],[26,60,'B'],[60,96,'C']]];const M={'A':c1,'B':c2,'C':c3};rows.forEach(function(r){const y=r[0];r.slice(1).forEach(function(st){b+='<rect x="'+st[0]+'" y="'+y+'" width="'+(st[1]-st[0]-1)+'" height="14" fill="'+M[st[2]]+'"/>';});});return fac(b,m)}
-const MSICDN='https://cdn.msisurfaces.com/images/colornames/thumbnails/';
+
 const PWALL=[
  ['none','No privacy wall',null,''],
  ['coronado','Coronado Stacked Stone','url("'+MSICDN+'coronado-4x12-honed-all-wall-tile-&-backsplash-tile.jpg")','msi'],
