@@ -177,7 +177,7 @@ const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://
 $('baseImg').src=ROOM+'base.webp';
 $('overImg').src=CDNV+'over-mid.webp';
 $('frontImg').src=CDNV+'over-front.webp';
-['p1','p2','p3','p4'].forEach(function(id,i){var el=$(id);var u=ROOM+'player'+(i+1)+'.webp';var im=new Image();im.onload=function(){el.style.backgroundImage='url("'+u+'")';el.style.display='block';};im.src=u;});
+['p1','p2','p3','p4'].forEach(function(id,i){var el=$(id);function tryu(u,next){var im=new Image();im.onload=function(){el.style.backgroundImage='url("'+u+'")';el.style.display='block';};im.onerror=next||function(){};im.src=u;}tryu(ROOM+'player'+(i+1)+'.webp',function(){tryu(ROOM+'player'+(i+1)+'.png');});});
 
 /* wallpapers: original + murals + patterns */
 function svgW(w,h,body,bg){return "url(\"data:image/svg+xml;utf8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><rect width="'+w+'" height="'+h+'" fill="'+bg+'"/>'+body+'</svg>').replace(/"/g,"'")+"\")"}
