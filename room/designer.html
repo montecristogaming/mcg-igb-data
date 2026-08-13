@@ -28,16 +28,28 @@
 #mcgRoom .ledpath{fill:none;stroke:#ff2d78;stroke-width:4px;filter:url(#mcgGlow);animation:mcgPulse 3.2s ease-in-out infinite}
 @keyframes mcgPulse{0%,100%{opacity:.92}50%{opacity:1}}
 /* privacy wall */
-#mcgRoom #pwall{position:absolute;left:29.7%;bottom:45.4%;width:44.7%;height:13.5%;display:none;filter:drop-shadow(0 7px 15px rgba(0,0,0,.6))}
+#mcgRoom #pwall{position:absolute;left:29.7%;bottom:45.4%;width:44.7%;height:19%;display:none;filter:drop-shadow(0 7px 15px rgba(0,0,0,.6))}
+#mcgRoom .pw-seg{position:absolute;top:0;bottom:0}
+#mcgRoom .pw-seg.l{left:0;width:43%}
+#mcgRoom .pw-seg.r{right:0;width:43%}
+#mcgRoom .pw-glass{position:absolute;left:-1%;right:-1%;top:-38%;height:40%;display:none;background:linear-gradient(to bottom,rgba(30,32,38,.38),rgba(30,32,38,.55));border:1px solid rgba(200,210,225,.35);border-bottom:none;backdrop-filter:blur(1.5px);border-radius:2px 2px 0 0}
+#mcgRoom .pw-glass:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.14) 32%,transparent 45%)}
+#mcgRoom .pw-doors{position:absolute;left:43%;width:14%;bottom:0;height:78%;pointer-events:none}
+#mcgRoom .pw-door{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(#7a5a36,#573e22);border:2px solid #3a2a16;border-radius:3px 3px 0 0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.06)}
+#mcgRoom .pw-door.a{left:1%;transform:perspective(300px) rotateY(28deg);transform-origin:left center}
+#mcgRoom .pw-door.b{right:1%;transform:perspective(300px) rotateY(-28deg);transform-origin:right center}
+#mcgRoom .pw-door:before{content:"";position:absolute;left:12%;right:12%;top:12%;bottom:52%;border:2px solid rgba(0,0,0,.28);border-radius:2px}
+#mcgRoom .pw-door:after{content:"";position:absolute;left:12%;right:12%;top:56%;bottom:12%;border:2px solid rgba(0,0,0,.28);border-radius:2px}
 #mcgRoom .pw-face{position:absolute;left:0;right:0;top:8%;bottom:0;background-size:96px auto;filter:brightness(.8) saturate(.92)}
 #mcgRoom .pw-face:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,0) 30%,rgba(0,0,0,.3));pointer-events:none}
 #mcgRoom .pw-face.mural{background-size:cover!important;background-position:center}
 #mcgRoom .pw-cap{position:absolute;top:0;left:-0.5%;right:-0.5%;height:9.5%;background:linear-gradient(#6b5638,#3a2e20);border-radius:2px}
+#mcgRoom .player{position:absolute;display:none;background:center bottom/contain no-repeat;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.6))}
 /* neon sign */
-#mcgRoom #neonImg{position:absolute;left:49.5%;top:12%;width:10.5%;display:none;pointer-events:none;
+#mcgRoom #neonImg{position:absolute;left:48%;top:10.5%;width:14.5%;display:none;pointer-events:none;
  filter:drop-shadow(0 0 8px rgba(255,80,140,.6)) drop-shadow(0 0 22px rgba(79,215,255,.45))}
 #mcgRoom .neontxt{position:absolute;left:55%;top:13%;transform:translateX(-50%);text-align:center;display:none;pointer-events:none}
-#mcgRoom .neontxt .n2{font-family:'Jost';font-weight:500;letter-spacing:.18em;font-size:clamp(14px,2.2vw,30px);color:#fff;text-shadow:0 0 8px #ffd23f,0 0 24px #ffb400,0 0 44px #ff8a00}
+#mcgRoom .neontxt .n2{font-family:'Jost';font-weight:500;letter-spacing:.18em;font-size:clamp(19px,3vw,42px);color:#fff;text-shadow:0 0 8px #ffd23f,0 0 24px #ffb400,0 0 44px #ff8a00}
 #mcgRoom .neontxt.casino .n2{font-family:'Cormorant Garamond',serif;letter-spacing:.1em;text-shadow:0 0 8px #4fd7ff,0 0 24px #4fd7ff,0 0 60px #4fd7ff}
 /* amenity right of games */
 #mcgRoom #amenity{position:absolute;left:73.8%;bottom:42%;width:7.2%;display:none;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(0,0,0,.7))}
@@ -72,6 +84,7 @@
 #mcgSaveM .close{display:block;margin:16px auto 0;background:none;border:none;color:var(--dim);font-size:12px;letter-spacing:.1em;cursor:pointer;text-decoration:underline}
 </style>
 
+<div id="locModal"><div class="loc-box"><div class="loc-eyebrow">Design Your Casino Room</div><h3>Select Location Type</h3><div class="loc-grid" id="locGrid"></div><p class="loc-note">More location types coming soon.</p></div></div>
 <div class="wrap">
   <div class="eyebrow">Build Your Vision</div>
   <h2 class="title">Design Your Casino Room</h2>
@@ -82,7 +95,12 @@
     <div class="masked" id="wallLayer"><div id="wallBg"></div><div id="wallTint"></div></div>
     <div class="masked" id="carpetLayer"><div id="carpetPlane"></div><div id="carpetShade"></div></div>
     <img class="lay" id="overImg" alt="">
-    <div id="pwall"><div class="pw-face" id="pwFace"></div><div class="pw-cap"></div></div>
+    <div class="player" id="p1" style="left:34.2%;bottom:45.5%;width:7%;height:26%"></div>
+    <div class="player" id="p2" style="left:41.5%;bottom:45.8%;width:7%;height:26%"></div>
+    <div class="player" id="p3" style="left:55.5%;bottom:46%;width:7%;height:26%"></div>
+    <div class="player" id="p4" style="left:63%;bottom:46%;width:7%;height:26%"></div>
+    <img class="lay" id="frontImg" alt="">
+    <div id="pwall"><div class="pw-glass" id="pwGlass"></div><div class="pw-seg l"><div class="pw-face"></div><div class="pw-cap"></div></div><div class="pw-seg r"><div class="pw-face"></div><div class="pw-cap"></div></div><div class="pw-doors"><div class="pw-door a"></div><div class="pw-door b"></div></div></div>
     <svg class="led" viewBox="0 0 1634 962" preserveAspectRatio="none">
       <defs><filter id="mcgGlow" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur stdDeviation="6" result="b1"/>
@@ -118,7 +136,7 @@
       </select>
     </div>
     <div class="card">
-      <h3>Flooring</h3>
+      <h3>Carpet &amp; Flooring</h3>
       <div class="sw" id="cFloor"></div>
       <p class="cap" id="cFloorName">Original herringbone wood floor</p>
       <h3 style="margin-top:14px">End-of-Row Amenity</h3>
@@ -127,13 +145,14 @@
     <div class="card">
       <h3>Privacy Wall</h3>
       <select id="cPwall"></select>
+      <div class="rowc"><input type="checkbox" id="cGlass" style="width:18px;height:18px;accent-color:#c6a15b"><span>Add Smoked Glass (+18\u2033)</span></div>
       <p class="cap">A classic half wall that screens the gaming area. Pick a stone, brick, or mural facade.</p>
       <h3 style="margin-top:14px">Carpet Coverage</h3>
       <select id="cCover">
         <option value="whole">Entire room</option>
         <option value="gaming">Carpet in gaming room only</option>
       </select>
-      <p class="cap">Gaming-room-only stops the carpet just behind the seating area.</p>
+      <p class="cap">Gaming-room-only stops the carpet at the privacy wall line.</p>
     </div>
   </div>
 
@@ -156,7 +175,9 @@ const $=id=>document.getElementById(id);
 const CDN='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/';
 const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data'+VER+'/';const ROOM=CDNV+'room/';['wallLayer','carpetLayer'].forEach(function(id,i){var el=document.getElementById(id);var u='url("'+ROOM+(i?'floor-mask.png':'wall-mask.png')+'")';el.style.webkitMaskImage=u;el.style.maskImage=u;});
 $('baseImg').src=ROOM+'base.webp';
-$('overImg').src=ROOM+'over.webp';
+$('overImg').src=CDNV+'over-mid.webp';
+$('frontImg').src=CDNV+'over-front.webp';
+['p1','p2','p3','p4'].forEach(function(id,i){var el=$(id);var u=ROOM+'player'+(i+1)+'.webp';var im=new Image();im.onload=function(){el.style.backgroundImage='url("'+u+'")';el.style.display='block';};im.src=u;});
 
 /* wallpapers: original + murals + patterns */
 function svgW(w,h,body,bg){return "url(\"data:image/svg+xml;utf8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><rect width="'+w+'" height="'+h+'" fill="'+bg+'"/>'+body+'</svg>').replace(/"/g,"'")+"\")"}
@@ -218,6 +239,21 @@ const wb=document.createElement('button');
 wb.title='Original Herringbone Wood';wb.style.background='url("'+ROOM+'base.webp") 30% 92%/800%';wb.classList.add('sel');
 wb.onclick=()=>{state.floor='wood';state.floorName='Original Herringbone Wood';$('carpetLayer').style.display='none';$('cFloorName').textContent='Original herringbone wood floor';selOnly($('cFloor'),wb);};
 $('cFloor').appendChild(wb);
+const MARBLES=[['China Black w/ Vein','china-black-w-vein-marble.jpg'],['Crema Cappuccino','crema-cappuccino-marble.jpg'],['Crema Marfil','crema-marfil-marble.jpg'],['Emperador Dark','emperador-dark-marble.jpg'],['Emperador Light','emperador-light-marble.jpg'],['Fantasy Brown','fantasy-brown-marble.jpg'],['Laurent Brown','laurent-brown-marble.jpg'],['Rain Forest','rain-forest-marble.jpg'],['Rosso Levanto','rosso-levanto-marble.jpg'],['White Oak Marble','white-oak-marble.jpg']];
+MARBLES.forEach(function(m){
+ const url=MSICDN+m[1];
+ const b=document.createElement('button');
+ b.title=m[0]+' marble tile';b.style.background='url("'+url+'") center/cover';
+ b.onclick=function(){
+   state.floor='msi:'+m[1];state.floorName=m[0]+' marble tile';
+   $('carpetLayer').style.display='block';
+   $('frontImg').style.display=(state.coverage==='gaming')?'block':'none';
+   $('carpetPlane').style.backgroundImage='url("'+url+'")';
+   $('carpetPlane').style.backgroundSize='170px auto';
+   $('cFloorName').textContent=m[0]+' marble tile flooring';selOnly($('cFloor'),b);
+ };
+ $('cFloor').appendChild(b);
+});
 function prettyName(fn){
  fn=fn.split('/').pop();
  let n=fn.replace(/\.[a-z0-9]+$/i,'');
@@ -237,6 +273,7 @@ function addCarpet(path){
  b.onclick=()=>{
    state.floor=path;state.floorName=name+' casino carpet';
    $('carpetLayer').style.display='block';
+   $('frontImg').style.display=(state.coverage==='gaming')?'block':'none';
    $('carpetPlane').style.backgroundImage='url("'+url+'")';
    $('carpetPlane').style.backgroundSize='300px auto';
    $('cFloorName').textContent=name+' casino carpet';selOnly($('cFloor'),b);
@@ -244,7 +281,7 @@ function addCarpet(path){
  $('cFloor').appendChild(b);
 }
 fetch('https://api.github.com/repos/montecristogaming/mcg-igb-data/git/trees/main?recursive=1').then(r=>r.ok?r.json():Promise.reject()).then(t=>{
- const files=(t.tree||[]).map(e=>e.path).filter(p=>/\.(webp|jpe?g|png|gif|avif)$/i.test(p)&&!p.startsWith('room/')&&!/mural|sign|palm|bird|soda|snack|popcorn|slot|helix|screenshot|monte_?cristo|coca|m3t|game.set|mask|designer|tavern|chatgpt/i.test(p));
+ const files=(t.tree||[]).map(e=>e.path).filter(p=>/\.(webp|jpe?g|png|gif|avif)$/i.test(p)&&!p.startsWith('room/')&&!/mural|sign|palm|bird|soda|snack|popcorn|slot|helix|screenshot|monte_?cristo|coca|m3t|game.set|mask|designer|tavern|chatgpt|over-/i.test(p));
  if(!files.length)throw 0;
  files.forEach(p=>addCarpet(p));
 }).catch(()=>{
@@ -255,14 +292,17 @@ fetch('https://api.github.com/repos/montecristogaming/mcg-igb-data/git/trees/mai
 /* privacy wall + coverage */
 function fac(body,bg){return svgW(96,60,body,bg)+' 0 0/96px 60px'}
 function ledger(c1,c2,c3,m){let b='';const rows=[[0,[0,30,'A'],[30,58,'B'],[58,96,'C']],[15,[0,22,'C'],[22,52,'A'],[52,80,'B'],[80,96,'A']],[30,[0,38,'B'],[38,64,'C'],[64,96,'A']],[45,[0,26,'A'],[26,60,'B'],[60,96,'C']]];const M={'A':c1,'B':c2,'C':c3};rows.forEach(function(r){const y=r[0];r.slice(1).forEach(function(st){b+='<rect x="'+st[0]+'" y="'+y+'" width="'+(st[1]-st[0]-1)+'" height="14" fill="'+M[st[2]]+'"/>';});});return fac(b,m)}
+const MSICDN='https://cdn.msisurfaces.com/images/colornames/thumbnails/';
 const PWALL=[
  ['none','No privacy wall',null,''],
- ['lsg','Ledger Stone \u2014 Gray',ledger('#8a8f94','#747a80','#9aa0a6','#555a60'),''],
- ['lst','Ledger Stone \u2014 Tan',ledger('#b9a488','#a08a6c','#cbb99e','#776352'),''],
- ['lsa','Ledger Stone \u2014 Autumn',ledger('#9a6b4f','#786055','#b08a62','#594538'),''],
- ['brick','Red Brick',fac('<rect x="0" y="0" width="46" height="13" fill="#7d3b2e"/><rect x="48" y="0" width="46" height="13" fill="#854136"/><rect x="-24" y="15" width="46" height="13" fill="#763a2c"/><rect x="24" y="15" width="46" height="13" fill="#7d3b2e"/><rect x="72" y="15" width="46" height="13" fill="#854136"/><rect x="0" y="30" width="46" height="13" fill="#854136"/><rect x="48" y="30" width="46" height="13" fill="#763a2c"/><rect x="-24" y="45" width="46" height="13" fill="#7d3b2e"/><rect x="24" y="45" width="46" height="13" fill="#763a2c"/><rect x="72" y="45" width="46" height="13" fill="#7d3b2e"/>','#cbc4ba'),''],
- ['slate','Dark Slate',fac('<rect x="0" y="0" width="94" height="28" fill="#3a3f45"/><rect x="0" y="30" width="45" height="28" fill="#434950"/><rect x="47" y="30" width="47" height="28" fill="#343940"/>','#262a2f'),''],
- ['ship','White Shiplap',fac('<rect x="0" y="0" width="96" height="18" fill="#e8e6df"/><rect x="0" y="20" width="96" height="18" fill="#efede6"/><rect x="0" y="40" width="96" height="18" fill="#e4e2da"/>','#c9c6bd'),''],
+ ['coronado','Coronado Stacked Stone','url("'+MSICDN+'coronado-4x12-honed-all-wall-tile-&-backsplash-tile.jpg")','msi'],
+ ['avorio','Avorio Ledger Stone','url("'+MSICDN+'avorio-ridge-cordova.jpg")','msi'],
+ ['lablanca','La Blanca Ledger Stone','url("'+MSICDN+'lablanca-ridge-cordova.jpg")','msi'],
+ ['gemscap','Gems Cappuccino Fluted Stone','url("'+MSICDN+'cappuccino-gems.jpg")','msi'],
+ ['gemschoc','Gems Chocolate Fluted Stone','url("'+MSICDN+'chocolate-gems.jpg")','msi'],
+ ['gemslatte','Gems Latte Fluted Stone','url("'+MSICDN+'latte-gems.jpg")','msi'],
+ ['livbeige','Livingstyle Beige Ridge','url("'+MSICDN+'livingstyle-beige-ridge-24x48-matte-livingstyle.jpg")','msi'],
+ ['duskslat','Dusk Wood Slat Panel','url("'+MSICDN+'dusk-acoustic-slat-wall-panel-wood-slat-panels.jpg")','msi'],
  ['mf','Mural \u2014 Vegas Fountains','url("'+ROOM+'mural-fountains.webp")','mural'],
  ['mg','Mural \u2014 Vintage Gambling Hall','url("'+ROOM+'mural-gambling-hall.webp")','mural'],
  ['mr','Mural \u2014 Roulette Casino','url("'+ROOM+'mural-roulette.webp")','mural'],
@@ -270,18 +310,26 @@ const PWALL=[
  ['ms','Mural \u2014 Gold Vegas Skyline','url("'+ROOM+'mural-skyline.webp")','mural']
 ];
 PWALL.forEach(function(p){const o=document.createElement('option');o.value=p[0];o.textContent=p[1];$('cPwall').appendChild(o);});
-state.pwall='none';state.coverage='whole';
+state.pwall='none';state.coverage='whole';state.glass=false;
 $('cPwall').onchange=function(e){
  const p=PWALL.find(function(x){return x[0]===e.target.value;});state.pwall=p[0];
- const w=$('pwall'),f=$('pwFace');
+ const w=$('pwall');
  if(p[0]==='none'){w.style.display='none';return;}
  w.style.display='block';
- f.className='pw-face'+(p[3]==='mural'?' mural':'');
- f.style.background=p[2];
- if(p[3]!=='mural'){f.style.backgroundSize='96px 60px';}
+ document.querySelectorAll('#pwall .pw-face').forEach(function(f){
+  f.className='pw-face'+(p[3]==='mural'?' mural':'');
+  f.style.background=p[2];
+  if(p[3]!=='mural'&&p[3]!=='msi'){f.style.backgroundSize='96px 60px';}
+  if(p[3]==='msi'){f.style.backgroundSize='150px auto';}
+ });
+};
+$('cGlass').onchange=function(e){
+ state.glass=e.target.checked;
+ $('pwGlass').style.display=e.target.checked?'block':'none';
 };
 $('cCover').onchange=function(e){
  state.coverage=e.target.value;
+ if(state.floor!=='wood'){$('frontImg').style.display=(e.target.value==='gaming')?'block':'none';}
  const u='url("'+(e.target.value==='gaming'?CDNV+'floor-mask-gaming.png':ROOM+'floor-mask.png')+'")';
  const el=$('carpetLayer');el.style.webkitMaskImage=u;el.style.maskImage=u;
 };
@@ -308,6 +356,8 @@ $('rmSave').onclick=()=>{
   '<li><b>End of row:</b> '+amName+'</li>'+
   '<li><b>Privacy wall:</b> '+(PWALL.find(function(x){return x[0]===state.pwall;})[1])+'</li>'+
   '<li><b>Carpet coverage:</b> '+(state.coverage==='gaming'?'Gaming room only':'Entire room')+'</li>'+
+  '<li><b>Smoked glass:</b> '+(state.glass?'Yes (+18\u2033)':'No')+'</li>'+
+  '<li><b>Location:</b> '+(state.loc||'Classic Chicago Tavern')+'</li>'+
   '<li><b>Games:</b> 6 premium games + M3T redemption terminal</li>';
  try{sessionStorage.setItem('mcg_room_design',JSON.stringify(state));}catch(e){}
  $('mcgSaveM').classList.add('open');
