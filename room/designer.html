@@ -199,7 +199,7 @@ $('cDoors').onchange=applyDoors;$('cDoorColor').onchange=applyDoors;
 var gsel=$('cGlassStyle');function applyGlass(){var gl=$('pwGlass');if(!state.glass)return;var f=(gsel.value==='g777')?'glass-777.webp':'glass-frost.webp';gl.style.background='url("'+ROOM+f+'") center/cover';gl.style.opacity='.9';}
 gsel.onchange=applyGlass;
 var _oldG=$('cGlass').onchange;$('cGlass').onchange=function(e){_oldG(e);gsel.style.display=e.target.checked?'inline-block':'none';if(e.target.checked)applyGlass();};
-document.querySelectorAll('#pwall .pw-cap').forEach(function(c){var im=new Image();im.onload=function(){document.querySelectorAll('#pwall .pw-cap').forEach(function(x){x.style.background='url("'+ROOM+'pw-cap-wood.webp") center/cover';});};im.src=CDNV+'pw-cap-wood.webp';});
+document.querySelectorAll('#pwall .pw-cap').forEach(function(c){var im=new Image();im.onload=function(){document.querySelectorAll('#pwall .pw-cap').forEach(function(x){x.style.background='url("'+CDNV+'pw-cap-wood.webp") center/cover';});};im.src=CDNV+'pw-cap-wood.webp';});
 
 /* wallpapers: original + murals + patterns */
 function svgW(w,h,body,bg){return "url(\"data:image/svg+xml;utf8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><rect width="'+w+'" height="'+h+'" fill="'+bg+'"/>'+body+'</svg>').replace(/"/g,"'")+"\")"}
