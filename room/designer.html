@@ -95,7 +95,7 @@
 .loc-btn:not(.soon):hover{border-color:#c6a15b;box-shadow:0 0 14px rgba(198,161,91,.45)}
 .loc-note{color:#a89e8b;font-size:12.5px;font-family:'Jost',sans-serif;letter-spacing:.08em;margin:0}
 #mcgRoom .pw-door{display:none}
-#mcgRoom #doorImg{position:absolute;left:50%;transform:translateX(-50%);bottom:-6%;width:135%;display:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+#mcgRoom #doorImg{position:absolute;left:50%;transform:translateX(-50%);bottom:-4%;width:165%;display:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,.6))}
 #mcgRoom .rowc select{background:#171012;color:#ece3d2;border:1px solid rgba(198,161,91,.3);border-radius:4px;padding:6px}
 </style>
 
@@ -198,7 +198,7 @@ function applyDoors(){var img=$('doorImg');if($('cDoors').value==='none'){img.st
 $('cDoors').onchange=applyDoors;$('cDoorColor').onchange=applyDoors;
 var gsel=$('cGlassStyle');function applyGlass(){var gl=$('pwGlass');if(!state.glass)return;var f=(gsel.value==='g777')?'glass-777.webp':'glass-frost.webp';gl.style.background='url("'+ROOM+f+'") center/cover';gl.style.opacity='.9';}
 gsel.onchange=applyGlass;
-var _oldG=$('cGlass').onchange;$('cGlass').onchange=function(e){_oldG(e);gsel.style.display=e.target.checked?'inline-block':'none';if(e.target.checked)applyGlass();};
+$('cGlass').addEventListener('change',function(e){gsel.style.display=e.target.checked?'inline-block':'none';if(e.target.checked)applyGlass();});
 document.querySelectorAll('#pwall .pw-cap').forEach(function(c){var im=new Image();im.onload=function(){document.querySelectorAll('#pwall .pw-cap').forEach(function(x){x.style.background='url("'+CDNV+'pw-cap-wood.webp") center/cover';});};im.src=CDNV+'pw-cap-wood.webp';});
 
 /* wallpapers: original + murals + patterns */
