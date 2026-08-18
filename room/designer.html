@@ -1,4 +1,4 @@
-<!-- MONTE CRISTO GAMING - Design Your Casino Room v5 (photoreal composite) -->
+<!-- MONTE CRISTO GAMING - Design Your Casino Room v11 (multi-location) -->
 <div id="mcgRoom">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet"/>
 <style>
@@ -103,7 +103,7 @@
 <div class="wrap">
   <div class="eyebrow">Build Your Vision</div>
   <h2 class="title">Design Your Casino Room</h2>
-  <p class="sub">This is a real Monte Cristo tavern install. Change the wallpaper, flooring, lighting, sign, and end-of-row amenity &mdash; and watch your room transform.</p>
+  <p class="sub">This is a real Monte Cristo tavern install. Pick your location type, then change the wallpaper, flooring, lighting, sign, and more &mdash; and watch your room transform.</p>
 
   <div class="scene" id="rmScene">
     <img class="lay" id="baseImg" alt="Your casino room">
@@ -130,6 +130,7 @@
     <div class="amlbl" id="amLbl"></div>
   </div>
   <p class="dims">A REAL MONTE CRISTO INSTALL &nbsp;&middot;&nbsp; 6 GAMES &nbsp;&middot;&nbsp; M3T REDEMPTION TERMINAL &nbsp;&middot;&nbsp; YOUR ROOM, YOUR STYLE</p>
+  <button type="button" id="rmLocBtn" style="display:block;margin:14px auto 0;background:none;border:1px solid #c6a15b;color:#c6a15b;font-family:Jost,sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;padding:10px 22px;cursor:pointer;border-radius:3px">Change Location Type</button>
 
   <div class="controls">
     <div class="card">
@@ -187,12 +188,40 @@
 (function(){
 const $=id=>document.getElementById(id);
 const CDN='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/';
-const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data'+VER+'/';const ROOM=CDNV+'room/';const MSICDN='https://cdn.msisurfaces.com/images/colornames/thumbnails/';['wallLayer','carpetLayer'].forEach(function(id,i){var el=document.getElementById(id);var u='url("'+ROOM+(i?'floor-mask.png':'wall-mask.png')+'")';el.style.webkitMaskImage=u;el.style.maskImage=u;});
-$('baseImg').src=ROOM+'base.webp';
+const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data'+VER+'/';const ROOM=CDNV+'room/';const MSICDN='https://cdn.msisurfaces.com/images/colornames/thumbnails/';
+var LCFG={
+ tavern:{name:'Classic Chicago Tavern',base:ROOM+'base.webp',wallMask:ROOM+'wall-mask.png',floorMask:ROOM+'floor-mask.png',gamingMask:ROOM+'floor-mask-gaming.png',led:'497,238 497,102 800,97 1295,90 1295,222',wb:[30.4,9.1,49.7,43.7],ct:51.8,tavern:1},
+ sportsbar:{name:'Sports Bar',base:ROOM+'sb-base.webp',wallMask:ROOM+'sb-wall-mask.png',floorMask:ROOM+'sb-floor-mask.png',gamingMask:ROOM+'sb-floor-mask-gaming.png',led:'485,235 485,105 880,95 1285,100 1285,230',wb:[29.4,10.4,49.6,33.3],ct:54},
+ tikibar:{name:'Tiki Bar',base:ROOM+'tiki-base.webp',wallMask:ROOM+'tiki-wall-mask.png',floorMask:ROOM+'tiki-floor-mask.png',gamingMask:ROOM+'tiki-floor-mask-gaming.png',led:'495,240 495,115 870,100 1285,115 1285,250',wb:[30,6.2,48.7,35.3],ct:56.5},
+ sandwich:{name:'Sandwich Shop',base:ROOM+'deli-base.webp',wallMask:ROOM+'deli-wall-mask.png',floorMask:ROOM+'deli-floor-mask.png',gamingMask:ROOM+'deli-floor-mask-gaming.png',led:'495,215 495,35 880,22 1285,32 1285,210',wb:[30,2.6,49,42.1],ct:62}
+};
+var LC=LCFG.tavern;
+function applyLoc(id){
+ LC=LCFG[id]||LCFG.tavern;
+ try{state.loc=LC.name;}catch(e){}
+ $('baseImg').src=LC.base;
+ var wl=$('wallLayer');wl.style.webkitMaskImage='url("'+LC.wallMask+'")';wl.style.maskImage='url("'+LC.wallMask+'")';
+ var covG=false;try{covG=(state.coverage==='gaming');}catch(e){}
+ var cov=covG?LC.gamingMask:LC.floorMask;
+ var cl=$('carpetLayer');cl.style.webkitMaskImage='url("'+cov+'")';cl.style.maskImage='url("'+cov+'")';
+ var wb=$('wallBg');wb.style.left=LC.wb[0]+'%';wb.style.top=LC.wb[1]+'%';wb.style.width=LC.wb[2]+'%';wb.style.height=LC.wb[3]+'%';
+ $('carpetPlane').style.top=LC.ct+'%';
+ $('ledLine').setAttribute('points',LC.led);
+ var tav=!!LC.tavern;
+ $('overImg').style.display=tav?'':'none';
+ if(!tav)$('frontImg').style.display='none';
+ ['p1','p2','p3','p4'].forEach(function(p){var el=$(p);el.style.display=(tav&&el.style.backgroundImage)?'block':'none';});
+ var pwCard=$('cPwall').closest('.card');if(pwCard)pwCard.style.display=tav?'':'none';
+ var pv='none';try{pv=state.pwall;}catch(e){}
+ $('pwall').style.display=(tav&&pv!=='none')?'block':'none';
+}
 $('overImg').src=CDNV+'over-mid.webp';
 $('frontImg').src=CDNV+'over-front.webp';
-['p1','p2','p3','p4'].forEach(function(id,i){var el=$(id);function tryu(u,next){var im=new Image();im.onload=function(){el.style.backgroundImage='url("'+u+'")';el.style.display='block';};im.onerror=next||function(){};im.src=u;}tryu(ROOM+'player'+(i+1)+'.webp',function(){tryu(ROOM+'player'+(i+1)+'.png');});});
-var LOCS=[{id:'tavern',name:'Classic Chicago Tavern',img:ROOM+'base.webp'},{id:'sportsbar',name:'Sports Bar',soon:1},{id:'restaurant',name:'Restaurant',soon:1},{id:'vfw',name:'VFW / Fraternal Club',soon:1}];LOCS.forEach(function(l){var b=document.createElement('button');b.type='button';b.className='loc-btn'+(l.soon?' soon':'');if(l.img)b.style.backgroundImage='url("'+l.img+'")';var s=document.createElement('span');s.textContent=l.name;b.appendChild(s);if(!l.soon)b.onclick=function(){var m=$('locModal');m.className='hide';setTimeout(function(){m.style.display='none';},600);};$('locGrid').appendChild(b);});
+['p1','p2','p3','p4'].forEach(function(id,i){var el=$(id);function tryu(u,next){var im=new Image();im.onload=function(){el.style.backgroundImage='url("'+u+'")';if(LC.tavern)el.style.display='block';};im.onerror=next||function(){};im.src=u;}tryu(ROOM+'player'+(i+1)+'.webp',function(){tryu(ROOM+'player'+(i+1)+'.png');});});
+applyLoc('tavern');
+var LOCS=[{id:'tavern',name:'Classic Chicago Tavern',img:ROOM+'base.webp'},{id:'sportsbar',name:'Sports Bar',img:ROOM+'sb-base.webp'},{id:'tikibar',name:'Tiki Bar',img:ROOM+'tiki-base.webp'},{id:'sandwich',name:'Sandwich Shop',img:ROOM+'deli-base.webp'},{id:'restaurant',name:'Restaurant',soon:1},{id:'vfw',name:'VFW / Fraternal Club',soon:1}];
+LOCS.forEach(function(l){var b=document.createElement('button');b.type='button';b.className='loc-btn'+(l.soon?' soon':'');if(l.img)b.style.backgroundImage='url("'+l.img+'")';var s=document.createElement('span');s.textContent=l.name;b.appendChild(s);if(!l.soon)b.onclick=function(){applyLoc(l.id);var m=$('locModal');m.className='hide';setTimeout(function(){m.style.display='none';},600);};$('locGrid').appendChild(b);});
+$('rmLocBtn').onclick=function(){var m=$('locModal');m.style.display='flex';m.className='';};
 var DOORF={black:'none',white:'invert(.92)',oak:'invert(.78) sepia(1) saturate(2.4) hue-rotate(-10deg) brightness(.95)',mahogany:'invert(.55) sepia(1) saturate(3) hue-rotate(-20deg) brightness(.7)'};
 function applyDoors(){var img=$('doorImg');if($('cDoors').value==='none'){img.style.display='none';return;}img.src=CDNV+'saloon-doors.webp';img.style.display='block';img.style.filter=DOORF[$('cDoorColor').value]||'none';}
 $('cDoors').onchange=applyDoors;$('cDoorColor').onchange=applyDoors;
@@ -267,7 +296,7 @@ MARBLES.forEach(function(m){
  b.onclick=function(){
    state.floor='msi:'+m[1];state.floorName=m[0]+' marble tile';
    $('carpetLayer').style.display='block';
-   $('frontImg').style.display=(state.coverage==='gaming')?'block':'none';
+   $('frontImg').style.display=(state.coverage==='gaming'&&LC.tavern)?'block':'none';
    $('carpetPlane').style.backgroundImage='url("'+url+'")';
    $('carpetPlane').style.backgroundSize='170px auto';
    $('cFloorName').textContent=m[0]+' marble tile flooring';selOnly($('cFloor'),b);
@@ -293,7 +322,7 @@ function addCarpet(path){
  b.onclick=()=>{
    state.floor=path;state.floorName=name+' casino carpet';
    $('carpetLayer').style.display='block';
-   $('frontImg').style.display=(state.coverage==='gaming')?'block':'none';
+   $('frontImg').style.display=(state.coverage==='gaming'&&LC.tavern)?'block':'none';
    $('carpetPlane').style.backgroundImage='url("'+url+'")';
    $('carpetPlane').style.backgroundSize='300px auto';
    $('cFloorName').textContent=name+' casino carpet';selOnly($('cFloor'),b);
@@ -352,8 +381,8 @@ $('cGlass').onchange=function(e){
 };
 $('cCover').onchange=function(e){
  state.coverage=e.target.value;
- if(state.floor!=='wood'){$('frontImg').style.display=(e.target.value==='gaming')?'block':'none';}
- const u='url("'+(e.target.value==='gaming'?ROOM+'floor-mask-gaming.png':ROOM+'floor-mask.png')+'")';
+ if(state.floor!=='wood'){$('frontImg').style.display=(e.target.value==='gaming'&&LC.tavern)?'block':'none';}
+ const u='url("'+(e.target.value==='gaming'?LC.gamingMask:LC.floorMask)+'")';
  const el=$('carpetLayer');el.style.webkitMaskImage=u;el.style.maskImage=u;
 };
 /* amenity */
@@ -380,7 +409,7 @@ $('rmSave').onclick=()=>{
   '<li><b>Privacy wall:</b> '+(PWALL.find(function(x){return x[0]===state.pwall;})[1])+'</li>'+
   '<li><b>Carpet coverage:</b> '+(state.coverage==='gaming'?'Gaming room only':'Entire room')+'</li>'+
   '<li><b>Smoked glass:</b> '+(state.glass?'Yes (+18\u2033)':'No')+'</li>'+
-  '<li><b>Location:</b> '+(state.loc||'Classic Chicago Tavern')+'</li>'+
+  '<li><b>Location:</b> '+LC.name+'</li>'+
   '<li><b>Games:</b> 6 premium games + M3T redemption terminal</li>';
  try{sessionStorage.setItem('mcg_room_design',JSON.stringify(state));}catch(e){}
  $('mcgSaveM').classList.add('open');
