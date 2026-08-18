@@ -190,10 +190,10 @@ const $=id=>document.getElementById(id);
 const CDN='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/';
 const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data'+VER+'/';const ROOM=CDNV+'room/';const MSICDN='https://cdn.msisurfaces.com/images/colornames/thumbnails/';
 var LCFG={
- tavern:{name:'Classic Chicago Tavern',base:ROOM+'base.webp',wallMask:ROOM+'wall-mask.png',floorMask:ROOM+'floor-mask.png',gamingMask:ROOM+'floor-mask-gaming.png',led:'497,238 497,102 800,97 1295,90 1295,222',wb:[30.4,9.1,49.7,43.7],ct:51.8,tavern:1},
- sportsbar:{name:'Sports Bar',base:ROOM+'sb-base.webp',wallMask:ROOM+'sb-wall-mask.png',floorMask:ROOM+'sb-floor-mask.png',gamingMask:ROOM+'sb-floor-mask-gaming.png',led:'485,235 485,105 880,95 1285,100 1285,230',wb:[29.4,10.4,49.6,33.3],ct:54},
- tikibar:{name:'Tiki Bar',base:ROOM+'tiki-base.webp',wallMask:ROOM+'tiki-wall-mask.png',floorMask:ROOM+'tiki-floor-mask.png',gamingMask:ROOM+'tiki-floor-mask-gaming.png',led:'495,240 495,115 870,100 1285,115 1285,250',wb:[30,6.2,48.7,35.3],ct:56.5},
- sandwich:{name:'Sandwich Shop',base:ROOM+'deli-base.webp',wallMask:ROOM+'deli-wall-mask.png',floorMask:ROOM+'deli-floor-mask.png',gamingMask:ROOM+'deli-floor-mask-gaming.png',led:'495,215 495,35 880,22 1285,32 1285,210',wb:[30,2.6,49,42.1],ct:62}
+ tavern:{name:'Classic Chicago Tavern',base:ROOM+'base.webp',wallMask:ROOM+'wall-mask.png',floorMask:ROOM+'floor-mask.png',gamingMask:ROOM+'floor-mask-gaming.png',led:'497,238 497,102 800,97 1295,90 1295,222',wb:[30.4,9.1,49.7,43.7],ct:51.8,pwb:45.4,tavern:1},
+ sportsbar:{name:'Sports Bar',base:ROOM+'sb-base.webp',wallMask:ROOM+'sb-wall-mask.png',floorMask:ROOM+'sb-floor-mask.png',gamingMask:ROOM+'sb-floor-mask-gaming.png',led:'485,235 485,105 880,95 1285,100 1285,230',wb:[29.4,10.4,49.6,33.3],ct:43,pwb:46},
+ tikibar:{name:'Tiki Bar',base:ROOM+'tiki-base.webp',wallMask:ROOM+'tiki-wall-mask.png',floorMask:ROOM+'tiki-floor-mask.png',gamingMask:ROOM+'tiki-floor-mask-gaming.png',led:'495,240 495,115 870,100 1285,115 1285,250',wb:[30,6.2,48.7,35.3],ct:44,pwb:42},
+ sandwich:{name:'Sandwich Shop',base:ROOM+'deli-base.webp',wallMask:ROOM+'deli-wall-mask.png',floorMask:ROOM+'deli-floor-mask.png',gamingMask:ROOM+'deli-floor-mask-gaming.png',led:'495,215 495,35 880,22 1285,32 1285,210',wb:[30,2.6,49,42.1],ct:47.5,pwb:35.5}
 };
 var LC=LCFG.tavern;
 function applyLoc(id){
@@ -211,9 +211,9 @@ function applyLoc(id){
  $('overImg').style.display=tav?'':'none';
  if(!tav)$('frontImg').style.display='none';
  ['p1','p2','p3','p4'].forEach(function(p){var el=$(p);el.style.display=(tav&&el.style.backgroundImage)?'block':'none';});
- var pwCard=$('cPwall').closest('.card');if(pwCard)pwCard.style.display=tav?'':'none';
+ $('pwall').style.bottom=(LC.pwb||45.4)+'%';
  var pv='none';try{pv=state.pwall;}catch(e){}
- $('pwall').style.display=(tav&&pv!=='none')?'block':'none';
+ $('pwall').style.display=(pv!=='none')?'block':'none';
 }
 $('overImg').src=CDNV+'over-mid.webp';
 $('frontImg').src=CDNV+'over-front.webp';
