@@ -1,4 +1,4 @@
-<!-- MONTE CRISTO GAMING - Design Your Casino Room v11 (multi-location) -->
+<!-- MONTE CRISTO GAMING - Design Your Casino Room v12 (clean floors, no doors) -->
 <div id="mcgRoom">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet"/>
 <style>
@@ -16,13 +16,15 @@
 #mcgRoom .scene img.lay{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 #mcgRoom .masked{position:absolute;inset:0;pointer-events:none;
  -webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-#mcgRoom #wallLayer{-webkit-mask-image:url(https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/room/wall-mask.png);mask-image:url(https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/room/wall-mask.png);display:none}
+#mcgRoom #wallLayer{display:none}
 #mcgRoom #wallBg{position:absolute;left:30.4%;top:9.1%;width:49.7%;height:43.7%;background-size:cover;background-position:center}
 #mcgRoom #wallBg.pat{background-size:auto}
 #mcgRoom #wallTint{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.28),rgba(0,0,0,.05) 40%,rgba(0,0,0,.22))}
-#mcgRoom #carpetLayer{-webkit-mask-image:url(https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/room/floor-mask.png);mask-image:url(https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/room/floor-mask.png);display:none}
+#mcgRoom #carpetRim{position:absolute;inset:0;pointer-events:none;display:none;background:rgba(8,5,4,.72)}
+#mcgRoom #carpetLayer{display:none}
 #mcgRoom #carpetPlane{position:absolute;left:-30%;top:51.8%;width:160%;height:80%;transform-origin:top center;transform:perspective(600px) rotateX(46deg);background-repeat:repeat}
 #mcgRoom #carpetShade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.55) 54%,rgba(0,0,0,.15) 74%,rgba(0,0,0,.35));opacity:.6}
+#mcgRoom #carpetLayer.gq #carpetShade{background:linear-gradient(to bottom,rgba(0,0,0,.42) 50%,rgba(0,0,0,.08) 70%,rgba(0,0,0,.28));opacity:.7}
 /* LED along crown */
 #mcgRoom svg.led{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 #mcgRoom .ledpath{fill:none;stroke:#ff2d78;stroke-width:4px;filter:url(#mcgGlow);animation:mcgPulse 3.2s ease-in-out infinite}
@@ -34,12 +36,6 @@
 #mcgRoom .pw-seg.r{right:0;width:43%}
 #mcgRoom .pw-glass{position:absolute;left:-1%;right:-1%;top:-38%;height:40%;display:none;background:linear-gradient(to bottom,rgba(30,32,38,.38),rgba(30,32,38,.55));border:1px solid rgba(200,210,225,.35);border-bottom:none;backdrop-filter:blur(1.5px);border-radius:2px 2px 0 0}
 #mcgRoom .pw-glass:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.14) 32%,transparent 45%)}
-#mcgRoom .pw-doors{position:absolute;left:43%;width:14%;bottom:0;height:78%;pointer-events:none}
-#mcgRoom .pw-door{position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(#7a5a36,#573e22);border:2px solid #3a2a16;border-radius:3px 3px 0 0;box-shadow:inset 0 0 0 2px rgba(255,255,255,.06)}
-#mcgRoom .pw-door.a{left:1%;transform:perspective(300px) rotateY(28deg);transform-origin:left center}
-#mcgRoom .pw-door.b{right:1%;transform:perspective(300px) rotateY(-28deg);transform-origin:right center}
-#mcgRoom .pw-door:before{content:"";position:absolute;left:12%;right:12%;top:12%;bottom:52%;border:2px solid rgba(0,0,0,.28);border-radius:2px}
-#mcgRoom .pw-door:after{content:"";position:absolute;left:12%;right:12%;top:56%;bottom:12%;border:2px solid rgba(0,0,0,.28);border-radius:2px}
 #mcgRoom .pw-face{position:absolute;left:0;right:0;top:8%;bottom:0;background-size:96px auto;filter:brightness(.8) saturate(.92)}
 #mcgRoom .pw-face:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,0) 30%,rgba(0,0,0,.3));pointer-events:none}
 #mcgRoom .pw-face.mural{background-size:cover!important;background-position:center}
@@ -94,8 +90,6 @@
 .loc-btn.soon::after{content:"COMING SOON";position:absolute;top:10px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.3em;color:#c6a15b;border:1px solid rgba(198,161,91,.5);padding:4px 8px;border-radius:3px;font-family:'Jost',sans-serif;white-space:nowrap}
 .loc-btn:not(.soon):hover{border-color:#c6a15b;box-shadow:0 0 14px rgba(198,161,91,.45)}
 .loc-note{color:#a89e8b;font-size:12.5px;font-family:'Jost',sans-serif;letter-spacing:.08em;margin:0}
-#mcgRoom .pw-door{display:none}
-#mcgRoom #doorImg{position:absolute;left:50%;transform:translateX(-50%);top:-14%;width:320%;max-width:none;display:none;filter:drop-shadow(0 6px 12px rgba(0,0,0,.65))}
 #mcgRoom .rowc select{background:#171012;color:#ece3d2;border:1px solid rgba(198,161,91,.3);border-radius:4px;padding:6px}
 </style>
 
@@ -108,6 +102,7 @@
   <div class="scene" id="rmScene">
     <img class="lay" id="baseImg" alt="Your casino room">
     <div class="masked" id="wallLayer"><div id="wallBg"></div><div id="wallTint"></div></div>
+    <div id="carpetRim"></div>
     <div class="masked" id="carpetLayer"><div id="carpetPlane"></div><div id="carpetShade"></div></div>
     <img class="lay" id="overImg" alt="">
     <div class="player" id="p1" style="left:34.2%;bottom:45.5%;width:7%;height:26%"></div>
@@ -115,7 +110,7 @@
     <div class="player" id="p3" style="left:55.5%;bottom:46%;width:7%;height:26%"></div>
     <div class="player" id="p4" style="left:63%;bottom:46%;width:7%;height:26%"></div>
     <img class="lay" id="frontImg" alt="">
-    <div id="pwall"><div class="pw-glass" id="pwGlass"></div><div class="pw-seg l"><div class="pw-face"></div><div class="pw-cap"></div></div><div class="pw-seg r"><div class="pw-face"></div><div class="pw-cap"></div></div><div class="pw-doors"><div class="pw-door a"></div><div class="pw-door b"></div><img id="doorImg" alt=""></div></div>
+    <div id="pwall"><div class="pw-glass" id="pwGlass"></div><div class="pw-seg l"><div class="pw-face"></div><div class="pw-cap"></div></div><div class="pw-seg r"><div class="pw-face"></div><div class="pw-cap"></div></div></div>
     <svg class="led" viewBox="0 0 1634 962" preserveAspectRatio="none">
       <defs><filter id="mcgGlow" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur stdDeviation="8" result="b1"/>
@@ -164,8 +159,7 @@
     <div class="card">
       <h3>Privacy Wall</h3>
       <select id="cPwall"></select>
-      <div class="rowc" style="margin-top:8px;gap:8px"><select id="cDoors" style="flex:1"><option value="none">No saloon doors</option><option value="doors">Saloon doors</option></select><select id="cDoorColor" style="flex:1"><option value="black">Black</option><option value="white">White</option><option value="oak">Oak</option><option value="mahogany">Mahogany</option></select></div>
-      <div class="rowc"><input type="checkbox" id="cGlass" style="width:18px;height:18px;accent-color:#c6a15b"><span>Add Frosted Glass</span><select id="cGlassStyle" style="width:auto;margin-left:8px;display:none"><option value="frost">Frosted</option><option value="g777">Frosted 777</option></select></div>
+            <div class="rowc"><input type="checkbox" id="cGlass" style="width:18px;height:18px;accent-color:#c6a15b"><span>Add Frosted Glass</span><select id="cGlassStyle" style="width:auto;margin-left:8px;display:none"><option value="frost">Frosted</option><option value="g777">Frosted 777</option></select></div>
       <p class="cap">A classic half wall that screens the gaming area. Pick a stone, brick, or mural facade.</p>
       
     </div>
@@ -190,30 +184,32 @@ const $=id=>document.getElementById(id);
 const CDN='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data@main/';
 const VER=(window.__MCG_SHA?('@'+window.__MCG_SHA):'@main');const CDNV='https://cdn.jsdelivr.net/gh/montecristogaming/mcg-igb-data'+VER+'/';const ROOM=CDNV+'room/';const MSICDN='https://cdn.msisurfaces.com/images/colornames/thumbnails/';
 var LCFG={
- tavern:{name:'Classic Chicago Tavern',base:ROOM+'base.webp',wallMask:ROOM+'wall-mask.png',floorMask:ROOM+'floor-mask.png',gamingMask:ROOM+'floor-mask-gaming.png',led:'497,230 497,98 895,92 1295,98 1295,230',wb:[30.4,9.1,49.7,43.7],ct:51.8,pwb:45.4,pl:[[34.2,45.5],[41.5,45.8],[55.5,46],[63,46]],pw:7,ph:26,tavern:1},
- sportsbar:{name:'Sports Bar',base:ROOM+'sb-base.webp',wallMask:ROOM+'sb-wall-mask.png',floorMask:ROOM+'sb-floor-mask.png',gamingMask:ROOM+'sb-floor-mask-gaming.png',led:'485,235 485,105 880,95 1285,100 1285,230',wb:[29.4,10.4,49.6,33.3],ct:43,pwb:46,pl:[[34.7,46],[47.6,46],[54,46],[66.9,46]],pw:7.8,ph:29},
- tikibar:{name:'Tiki Bar',base:ROOM+'tiki-base.webp',wallMask:ROOM+'tiki-wall-mask.png',floorMask:ROOM+'tiki-floor-mask.png',gamingMask:ROOM+'tiki-floor-mask-gaming.png',led:'495,240 495,115 870,100 1285,115 1285,250',wb:[30,6.2,48.7,35.3],ct:44,pwb:42,pl:[[35.7,42],[48.5,42],[54.9,42],[67.8,42]],pw:8.6,ph:32},
- sandwich:{name:'Sandwich Shop',base:ROOM+'deli-base.webp',wallMask:ROOM+'deli-wall-mask.png',floorMask:ROOM+'deli-floor-mask.png',gamingMask:ROOM+'deli-floor-mask-gaming.png',led:'482,145 482,32 880,22 1300,32 1300,145',wb:[30,2.6,49,42.1],ct:47.5,pwb:35.5,pl:[[35.7,35.5],[49.4,35.5],[56.5,35.5],[70.2,35.5]],pw:9.7,ph:36}
+ tavern:{name:'Classic Chicago Tavern',base:ROOM+'base.webp',wallMask:ROOM+'wall-mask.png',floorMask:ROOM+'floor-mask.png',gq:[[30.5,51.4],[69.8,51.4],[72.6,66.5],[27.6,66.5]],led:'497,230 497,98 895,92 1295,98 1295,230',wb:[30.4,9.1,49.7,43.7],ct:51.8,pwb:45.4,pl:[[34.2,45.5],[41.5,45.8],[55.5,46],[63,46]],pw:7,ph:26,tavern:1},
+ sportsbar:{name:'Sports Bar',base:ROOM+'sb-base.webp',wallMask:ROOM+'sb-wall-mask.png',floorMask:ROOM+'sb-floor-mask.png',gq:[[35.3,54.6],[71,54.6],[71.6,72.5],[34.7,72.5]],led:'485,235 485,105 880,95 1285,100 1285,230',wb:[29.4,10.4,49.6,33.3],ct:43,pwb:46,pl:[[34.7,46],[47.6,46],[54,46],[66.9,46]],pw:7.8,ph:29},
+ tikibar:{name:'Tiki Bar',base:ROOM+'tiki-base.webp',wallMask:ROOM+'tiki-wall-mask.png',floorMask:ROOM+'tiki-floor-mask.png',gq:[[36,57.4],[69.6,57.4],[70,72.5],[35.6,72.5]],led:'495,240 495,115 870,100 1285,115 1285,250',wb:[30,6.2,48.7,35.3],ct:44,pwb:42,pl:[[35.7,42],[48.5,42],[54.9,42],[67.8,42]],pw:8.6,ph:32},
+ sandwich:{name:'Sandwich Shop',base:ROOM+'deli-base.webp',wallMask:ROOM+'deli-wall-mask.png',floorMask:ROOM+'deli-floor-mask.png',gq:[[34.2,64.6],[70.6,64.6],[71,71.6],[33.8,71.6]],led:'482,145 482,32 880,22 1300,32 1300,145',wb:[30,2.6,49,42.1],ct:47.5,pwb:35.5,pl:[[35.7,35.5],[49.4,35.5],[56.5,35.5],[70.2,35.5]],pw:9.7,ph:36}
 };
 var LC=LCFG.tavern;
+function poly(q,grow){grow=grow||0;var cx=0,cy=0;q.forEach(function(p){cx+=p[0];cy+=p[1];});cx/=q.length;cy/=q.length;return 'polygon('+q.map(function(p){var dx=p[0]-cx,dy=p[1]-cy;var L=Math.sqrt(dx*dx+dy*dy)||1;return (p[0]+dx/L*grow).toFixed(2)+'% '+(p[1]+dy/L*grow*0.6).toFixed(2)+'%';}).join(',')+')';}
+function applyCoverage(){var gaming=false;try{gaming=(state.coverage==='gaming');}catch(e){}var cl=$('carpetLayer'),rim=$('carpetRim');if(gaming&&LC.gq){cl.classList.add('gq');cl.style.webkitMaskImage='none';cl.style.maskImage='none';cl.style.webkitClipPath=poly(LC.gq);cl.style.clipPath=poly(LC.gq);rim.style.webkitClipPath=poly(LC.gq,0.55);rim.style.clipPath=poly(LC.gq,0.55);rim.style.display=(cl.style.display==='block')?'block':'none';}else{cl.classList.remove('gq');cl.style.webkitClipPath='';cl.style.clipPath='';cl.style.webkitMaskImage='url("'+LC.floorMask+'")';cl.style.maskImage='url("'+LC.floorMask+'")';rim.style.display='none';}}
 function applyLoc(id){
  LC=LCFG[id]||LCFG.tavern;
  try{state.loc=LC.name;}catch(e){}
  $('baseImg').src=LC.base;
  var wl=$('wallLayer');wl.style.webkitMaskImage='url("'+LC.wallMask+'")';wl.style.maskImage='url("'+LC.wallMask+'")';
- var covG=false;try{covG=(state.coverage==='gaming');}catch(e){}
- var cov=covG?LC.gamingMask:LC.floorMask;
- var cl=$('carpetLayer');cl.style.webkitMaskImage='url("'+cov+'")';cl.style.maskImage='url("'+cov+'")';
  var wb=$('wallBg');wb.style.left=LC.wb[0]+'%';wb.style.top=LC.wb[1]+'%';wb.style.width=LC.wb[2]+'%';wb.style.height=LC.wb[3]+'%';
  $('carpetPlane').style.top=LC.ct+'%';
  $('ledLine').setAttribute('points',LC.led);
  var tav=!!LC.tavern;
  $('overImg').style.display=tav?'':'none';
- if(!tav)$('frontImg').style.display='none';
+ var covG=false;try{covG=(state.coverage==='gaming');}catch(e){}
+ var hasFloor=false;try{hasFloor=(state.floor!=='wood');}catch(e){}
+ $('frontImg').style.display=(tav&&covG&&hasFloor)?'block':'none';
  ['p1','p2','p3','p4'].forEach(function(p,i){var el=$(p);var c=(LC.pl&&LC.pl[i])||[34.2,45.5];el.style.left=c[0]+'%';el.style.bottom=c[1]+'%';el.style.width=(LC.pw||7)+'%';el.style.height=(LC.ph||26)+'%';el.style.display=el.style.backgroundImage?'block':'none';});
  $('pwall').style.bottom=(LC.pwb||45.4)+'%';
  var pv='none';try{pv=state.pwall;}catch(e){}
  $('pwall').style.display=(pv!=='none')?'block':'none';
+ applyCoverage();
 }
 $('overImg').src=CDNV+'over-mid.webp';
 $('frontImg').src=CDNV+'over-front.webp';
@@ -222,9 +218,6 @@ applyLoc('tavern');
 var LOCS=[{id:'tavern',name:'Classic Chicago Tavern',img:ROOM+'base.webp'},{id:'sportsbar',name:'Sports Bar',img:ROOM+'sb-base.webp'},{id:'tikibar',name:'Tiki Bar',img:ROOM+'tiki-base.webp'},{id:'sandwich',name:'Sandwich Shop',img:ROOM+'deli-base.webp'},{id:'restaurant',name:'Restaurant',soon:1},{id:'vfw',name:'VFW / Fraternal Club',soon:1}];
 LOCS.forEach(function(l){var b=document.createElement('button');b.type='button';b.className='loc-btn'+(l.soon?' soon':'');if(l.img)b.style.backgroundImage='url("'+l.img+'")';var s=document.createElement('span');s.textContent=l.name;b.appendChild(s);if(!l.soon)b.onclick=function(){applyLoc(l.id);var m=$('locModal');m.className='hide';setTimeout(function(){m.style.display='none';},600);};$('locGrid').appendChild(b);});
 $('rmLocBtn').onclick=function(){var m=$('locModal');m.style.display='flex';m.className='';};
-var DOORF={black:'none',white:'invert(.92)',oak:'invert(.78) sepia(1) saturate(2.4) hue-rotate(-10deg) brightness(.95)',mahogany:'invert(.55) sepia(1) saturate(3) hue-rotate(-20deg) brightness(.7)'};
-function applyDoors(){var img=$('doorImg');if($('cDoors').value==='none'){img.style.display='none';return;}img.src=CDNV+'saloon-doors.webp';img.style.display='block';img.style.filter=DOORF[$('cDoorColor').value]||'none';}
-$('cDoors').onchange=applyDoors;$('cDoorColor').onchange=applyDoors;
 var gsel=$('cGlassStyle');function applyGlass(){var gl=$('pwGlass');if(!state.glass)return;var f=(gsel.value==='g777')?'glass-777.webp':'glass-frost.webp';gl.style.background='url("'+ROOM+f+'") center/cover';gl.style.opacity='.9';}
 gsel.onchange=applyGlass;
 $('cGlass').addEventListener('change',function(e){gsel.style.display=e.target.checked?'inline-block':'none';if(e.target.checked)applyGlass();});
@@ -286,7 +279,7 @@ $('cNeon').onchange=e=>{
 /* flooring */
 const wb=document.createElement('button');
 wb.title='Original Herringbone Wood';wb.style.background='url("'+ROOM+'base.webp") 30% 92%/800%';wb.classList.add('sel');
-wb.onclick=()=>{state.floor='wood';state.floorName='Original Herringbone Wood';$('carpetLayer').style.display='none';$('cFloorName').textContent='Original herringbone wood floor';selOnly($('cFloor'),wb);};
+wb.onclick=()=>{state.floor='wood';state.floorName='Original Herringbone Wood';$('carpetLayer').style.display='none';$('carpetRim').style.display='none';$('frontImg').style.display='none';$('cFloorName').textContent='Original herringbone wood floor';selOnly($('cFloor'),wb);};
 $('cFloor').appendChild(wb);
 const MARBLES=[['China Black w/ Vein','china-black-w-vein-marble.jpg'],['Crema Cappuccino','crema-cappuccino-marble.jpg'],['Crema Marfil','crema-marfil-marble.jpg'],['Emperador Dark','emperador-dark-marble.jpg'],['Emperador Light','emperador-light-marble.jpg'],['Fantasy Brown','fantasy-brown-marble.jpg'],['Laurent Brown','laurent-brown-marble.jpg'],['Rain Forest','rain-forest-marble.jpg'],['Rosso Levanto','rosso-levanto-marble.jpg'],['White Oak Marble','white-oak-marble.jpg']];
 MARBLES.forEach(function(m){
@@ -298,7 +291,7 @@ MARBLES.forEach(function(m){
    $('carpetLayer').style.display='block';
    $('frontImg').style.display=(state.coverage==='gaming'&&LC.tavern)?'block':'none';
    $('carpetPlane').style.backgroundImage='url("'+url+'")';
-   $('carpetPlane').style.backgroundSize='170px auto';
+   $('carpetPlane').style.backgroundSize='170px auto';applyCoverage();
    $('cFloorName').textContent=m[0]+' marble tile flooring';selOnly($('cFloor'),b);
  };
  $('cFloor').appendChild(b);
@@ -324,7 +317,7 @@ function addCarpet(path){
    $('carpetLayer').style.display='block';
    $('frontImg').style.display=(state.coverage==='gaming'&&LC.tavern)?'block':'none';
    $('carpetPlane').style.backgroundImage='url("'+url+'")';
-   $('carpetPlane').style.backgroundSize='300px auto';
+   $('carpetPlane').style.backgroundSize='300px auto';applyCoverage();
    $('cFloorName').textContent=name+' casino carpet';selOnly($('cFloor'),b);
  };
  $('cFloor').appendChild(b);
@@ -382,8 +375,7 @@ $('cGlass').onchange=function(e){
 $('cCover').onchange=function(e){
  state.coverage=e.target.value;
  if(state.floor!=='wood'){$('frontImg').style.display=(e.target.value==='gaming'&&LC.tavern)?'block':'none';}
- const u='url("'+(e.target.value==='gaming'?LC.gamingMask:LC.floorMask)+'")';
- const el=$('carpetLayer');el.style.webkitMaskImage=u;el.style.maskImage=u;
+ applyCoverage();
 };
 /* amenity */
 AMEN.forEach(a=>{const o=document.createElement('option');o.value=a[0];o.textContent='End of row: '+a[1];$('cAm').appendChild(o);});
@@ -408,7 +400,7 @@ $('rmSave').onclick=()=>{
   '<li><b>End of row:</b> '+amName+'</li>'+
   '<li><b>Privacy wall:</b> '+(PWALL.find(function(x){return x[0]===state.pwall;})[1])+'</li>'+
   '<li><b>Carpet coverage:</b> '+(state.coverage==='gaming'?'Gaming room only':'Entire room')+'</li>'+
-  '<li><b>Smoked glass:</b> '+(state.glass?'Yes (+18\u2033)':'No')+'</li>'+
+  '<li><b>Frosted glass:</b> '+(state.glass?'Yes (+18\u2033)':'No')+'</li>'+
   '<li><b>Location:</b> '+LC.name+'</li>'+
   '<li><b>Games:</b> 6 premium games + M3T redemption terminal</li>';
  try{sessionStorage.setItem('mcg_room_design',JSON.stringify(state));}catch(e){}
